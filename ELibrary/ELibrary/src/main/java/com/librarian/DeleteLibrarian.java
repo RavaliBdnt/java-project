@@ -1,0 +1,38 @@
+package com.librarian;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.connection.DbConnection;
+import com.dao.LibrarianDao;
+
+@WebServlet("/delete")
+public class DeleteLibrarian extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		
+		LibrarianDao dao = new LibrarianDao(DbConnection.getConnection());
+		boolean f = dao.deleteLibrarian(id);
+		
+		HttpSession session = req.getSession();
+		
+		if(f) {
+			session.setAttribute("deleteSuccess", "Librarian Delete Successfuly");
+			resp.sendRedirect("/ELibrary/admin/viewLibrarian.jsp");
+		}else {
+			session.setAttribute("deleteFailed", "oops something wrong try again");
+			resp.sendRedirect("/ELibrary/admin/viewLibrarian.jsp");
+		}
+		
+	}
+
+	
+}
