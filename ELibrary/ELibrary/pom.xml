@@ -33,6 +33,11 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		        <dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>tomcat-util</artifactId>
+    <version>YourTomcatVersion</version>
+</dependency>
 	</dependencies>
 	<build>
 		<plugins>
